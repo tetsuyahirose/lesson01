@@ -1,5 +1,12 @@
-const errorLogs = [
-  "Error 101:Invalid Exception AAA - 2020/01/01/01:00",
-  "Error 3:Invalid Exception BBBB - 2020/01/01/02:00",
-  "Error 22:Invalid Exception CCCCC - 2020/01/01/03:00"
-]
+//ログファイルの中からエラーの内容だけを抜き出して表示する
+const fs = require('fs');
+const readline = require('readline');
+const rs = fs.createReadStream('./error.log');
+const rl = readline.createInterface({ input: rs });
+const start=':'
+const end='-'
+rl.on('line', (line) => {
+  const startpoint=line.indexOf(start)+start.length
+  const endpoint=line.indexOf(end)
+  console.log(line.substr(startpoint,endpoint-startpoint))
+});
